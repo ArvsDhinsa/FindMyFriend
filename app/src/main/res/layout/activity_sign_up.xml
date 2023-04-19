@@ -89,7 +89,7 @@
         android:layout_marginTop="30dp"
         android:text="Register account"
         android:background="@drawable/button_sign_up"
-        android:backgroundTint="@null"
+        app:backgroundTint="@null"
         android:onClick="signupButtonClicked"
         app:layout_constraintEnd_toEndOf="@+id/editTextEmail"
         app:layout_constraintStart_toStartOf="@+id/editTextEmail"

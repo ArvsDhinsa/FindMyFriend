@@ -49,7 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void onButtonLoginClicked(View view) {
-
-
+        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
