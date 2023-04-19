@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,6 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
 
@@ -16,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView textViewForgotPassword, textViewRegister;
 
     ProgressBar progressBar;
+
+    FirebaseAuth mAuth;
 
 
     @Override
@@ -30,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         textViewRegister = (TextView) findViewById(R.id.txtLoginRegister);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -46,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         String userName = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if (Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
             editTextUsername.setError("Please enter your email address");
             editTextUsername.requestFocus();
         }
@@ -57,6 +68,19 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE);
+
+        mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(LoginActivity.this, "You are successfully logged in", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "You were not able to log in", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 
     }
