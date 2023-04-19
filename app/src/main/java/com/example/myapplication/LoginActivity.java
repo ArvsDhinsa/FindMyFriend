@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -45,11 +46,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void textLoginForgotPwdClicked(View v) {
-
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
     }
 
     public void textLoginRegisterClicked(View v) {
-
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
     }
 
     public void buttonLoginClicked(View v) {
