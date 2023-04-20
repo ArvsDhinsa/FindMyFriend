@@ -39,6 +39,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     public void forgotPasswordReset(View v) {
         resetPassword();
+
     }
 
     private void resetPassword() {

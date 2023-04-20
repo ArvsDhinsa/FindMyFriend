@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_currentlocation"
+            android:icon="@drawable/baseline_location_on_24"
+            android:title="Current Location" />
+
+        <item android:id="@+id/nav_sharelocation"
+            android:icon="@drawable/baseline_share_location_24"
+            android:title="Location Sharing" />
+
+        <item android:id="@+id/nav_chats"
+            android:icon="@drawable/baseline_chat_24"
+            android:title="Chats" />
+
+    </group>
+
+</menu>
