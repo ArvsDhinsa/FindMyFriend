@@ -42,10 +42,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
         if (item.getItemId() == R.id.nav_currentlocation) {
-            startActivity(new Intent(this, MapsActivity.class));
+            startActivity(new Intent(this, MapsActivity2.class));
             overridePendingTransition(0, 0);
         } else if (item.getItemId() == R.id.nav_sharelocation) {
-            startActivity(new Intent(this, TestActivity2.class));
+            startActivity(new Intent(this, ChatActivity.class));
             overridePendingTransition(0, 0 );
         } else if (item.getItemId() == R.id.nav_chats) {
             startActivity(new Intent(this, TestActivity.class));

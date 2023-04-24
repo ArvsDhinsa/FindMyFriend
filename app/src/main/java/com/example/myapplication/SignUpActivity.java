@@ -17,21 +17,21 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText editTextUsername;
+    EditText editTextUsername; // These five fields are called here to be
     EditText editTextPassword;
     EditText editTextMobileNumber;
     EditText editTextEmail;
 
     ProgressBar progressBar;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth; // Calls the method to connect the Firebase Authentication to signup page
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        editTextUsername = (EditText) findViewById(R.id.editTextUsername);
+        editTextUsername = (EditText) findViewById(R.id.editTextUsername); //These functions call the methods to be used by the input fields on the page
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextMobileNumber = (EditText) findViewById(R.id.editTextMobileNumber);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
