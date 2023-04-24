@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText editTextUsername; // These five fields are called here to be
+    EditText editTextUsername; // These five fields are called here to be used in later methods
     EditText editTextPassword;
     EditText editTextMobileNumber;
     EditText editTextEmail;
@@ -37,62 +37,63 @@ public class SignUpActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); // Connects the application to the Firebase database to store user sign-in details
     }
 
     public void signupButtonClicked(View v) {
 
-        String txtUserName = editTextUsername.getText().toString().trim();
+        String txtUserName = editTextUsername.getText().toString().trim(); // Defines the type of value to be entered into each input field
         String txtPassword = editTextPassword.getText().toString().trim();
         String txtMobileNumber = editTextMobileNumber.getText().toString().trim();
         String txtEmail = editTextEmail.getText().toString().trim();
 
         if (txtUserName.isEmpty()) {
-            editTextUsername.setError("Please enter a username");
+            editTextUsername.setError("Please enter a username"); // Throws an error message when the user fails to input a username
             editTextUsername.requestFocus();
         }
 
         if (txtPassword.isEmpty() || txtPassword.length() < 6) {
-            editTextPassword.setError("Please enter a password that is at least 6 characters long");
+            editTextPassword.setError("Please enter a password that is at least 6 characters long"); // Throws an error message when the user
+                                                                                                    // fails to input a password shorter than 6 characters
             editTextPassword.requestFocus();
         }
 
         if (txtMobileNumber.isEmpty()) {
-            editTextMobileNumber.setError("Please enter a valid phone number");
+            editTextMobileNumber.setError("Please enter a valid phone number"); // Throws an error message when the user fails to input a phone number
             editTextMobileNumber.requestFocus();
         }
 
         if (txtEmail.isEmpty()) {
-            editTextEmail.setError("Please enter an email address");
+            editTextEmail.setError("Please enter an email address"); // Throws an error message when the user fails to input an email address
             editTextEmail.requestFocus();
         }
 
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE); // Progress bar is running to show user that background activity is functioning
 
-        mAuth.createUserWithEmailAndPassword(txtEmail, txtPassword)
+        mAuth.createUserWithEmailAndPassword(txtEmail, txtPassword) // This method adds the users details into the Firebase database
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User user = new User(txtUserName, txtPassword, txtMobileNumber, txtEmail);
+                            User user = new User(txtUserName, txtPassword, txtMobileNumber, txtEmail); //Defines which fields are to be added
 
                             FirebaseDatabase.getInstance().getReference("Users")
-                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()) // The path as to where in the database the details are stored
                                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
+                                            if (task.isSuccessful()) { // Success message when the signup to the app is successful
                                                 Toast.makeText(SignUpActivity.this, "User registered successfully", Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                             }
-                                            else {
+                                            else { // Error message when signup to app is not successful, redirects user to signup activity
                                                 Toast.makeText(SignUpActivity.this, "User failed to register", Toast.LENGTH_LONG).show();
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         }
                                     });
                         }
-                        else {
+                        else { // Error message when signup is not successful
                             Toast.makeText(SignUpActivity.this, "User failed to register", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
